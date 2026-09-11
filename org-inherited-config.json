@@ -1,0 +1,8 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "github>datum-cloud/.github:renovate-config"
+  ],
+  "onboarding": false,
+  "requireConfig": "optional"
+}
