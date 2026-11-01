@@ -5,5 +5,52 @@
     "github>datum-cloud/.github:renovate-config"
   ],
   "onboarding": false,
-  "requireConfig": "optional"
+  "requireConfig": "optional",
+  "lockFileMaintenance": {
+    "automerge": true,
+    "automergeType": "pr",
+    "automergeStrategy": "merge-commit",
+    "platformAutomerge": false
+  },
+  "packageRules": [
+    {
+      "description": "Low-risk updates open on their own and merge once every check on the branch is green and the pull request is approved. Renovate merges them itself rather than through GitHub auto-merge, because the datum-labs ruleset requires no status checks, so GitHub would merge on the approval alone before CI finishes.",
+      "matchUpdateTypes": ["patch", "pin", "digest", "pinDigest"],
+      "dependencyDashboardApproval": false,
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "merge-commit",
+      "platformAutomerge": false
+    },
+    {
+      "description": "Minor updates to development-only npm dependencies merge the same way, except 0.x packages, whose minors may break.",
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["minor"],
+      "matchCurrentVersion": "!/^[~^]?v?0\\./",
+      "dependencyDashboardApproval": false,
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "merge-commit",
+      "platformAutomerge": false,
+      "minimumReleaseAge": "3 days"
+    },
+    {
+      "description": "A new patch version must be three days old before it opens. Security fixes skip the wait, because Renovate's vulnerability settings override package rules.",
+      "matchUpdateTypes": ["patch"],
+      "minimumReleaseAge": "3 days"
+    },
+    {
+      "description": "A digest often has no publish time. Hold it three days when the registry reports one, and do not hold it forever when it does not.",
+      "matchUpdateTypes": ["digest"],
+      "minimumReleaseAge": "3 days",
+      "minimumReleaseAgeBehaviour": "timestamp-optional"
+    },
+    {
+      "description": "fleet keeps human review for every update.",
+      "matchRepositories": ["datum-labs/fleet"],
+      "matchUpdateTypes": ["patch", "minor", "pin", "digest", "pinDigest", "lockFileMaintenance"],
+      "dependencyDashboardApproval": true,
+      "automerge": false
+    }
+  ]
 }
