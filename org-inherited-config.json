@@ -1,6 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "description": "Datum's organisation-wide Renovate policy for datum-labs, applied to every repository underneath its own config.",
+  "description": ["Datum's organisation-wide Renovate policy for datum-labs, applied to every repository underneath its own config."],
   "extends": [
     "github>datum-cloud/.github:renovate-config"
   ],
